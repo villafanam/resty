@@ -10,7 +10,7 @@ Setup the basic scaffolding of the application, with intent being to add more fu
 
 ### Links and Resources
 
-- [GitHub Actions ci/cd](https://github.com/rkgallaway/server-deployment-practice-d51/actions) 
+- [GitHub PR](https://github.com/villafanam/resty/pull/2) 
 - [resty Code Sandbox](https://codesandbox.io/p/github/villafanam/resty/main?workspaceId=9bb919df-dd57-4e7c-8ed2-08fc6874f3bd&file=%2FREADME.md) 
 
 
