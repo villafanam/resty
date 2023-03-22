@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 import './Form.scss';
 
-//url: 'https://pokeapi.co/api/v2/pokemon',
-
 const Form = (props) => {
 
   const [url, setUrl] = useState('');
@@ -21,8 +19,7 @@ const Form = (props) => {
       formData.data = JSON.parse(e.target.postContent.value);
     }
 
-    console.log('formData: ', formData)
-
+    //console.log('formData: ', formData)
     props.handleApiCall(formData);
   }
 
