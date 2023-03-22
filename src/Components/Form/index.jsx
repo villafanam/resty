@@ -6,7 +6,7 @@ import './Form.scss';
 
 const Form = (props) => {
 
-  const [url, setUrl] = useState('GET');
+  const [url, setUrl] = useState('');
   const [method, setMethod] = useState('');
 
 
@@ -31,14 +31,14 @@ const Form = (props) => {
       <form onSubmit={handleSubmit}>
         <label >
           <span>URL: </span>
-          <input data-testid="input" name='url' type='text' onChange={(e) => setUrl(e.target.value)} />
-          <button type="submit">GO!</button>
+          <input data-testid="url-input" name='url' type='text' onChange={(e) => setUrl(e.target.value)} />
+          <button data-testid="button" type="submit">GO!</button>
         </label>
         
         <label className="methods">
           <span
             id="get"
-            data-testid="getBtn"
+            data-testid="get-span"
             style={{ backgroundColor: method === 'GET' ? '#f51800' : '#fbe89d' }}
             onClick={(e) => setMethod(e.target.innerText)}
           >GET</span>
@@ -63,7 +63,7 @@ const Form = (props) => {
 
         </label>
 
-        <label for="postContent">JSON DATA
+        <label htmlFor="postContent">JSON DATA
           <textarea name="postContent" rows={4} cols={40} />
         </label>
 

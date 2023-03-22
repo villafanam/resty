@@ -12,9 +12,13 @@ const Results = (props) => {
     <section>
       {props.loading
         ? <div>Loading...</div>
-        : data
-          ? <JSONPretty data={data} theme={JSONPrettyMon}></JSONPretty>
-          : null
+        : <pre data-testid="json">
+          {
+            data
+              ? <JSONPretty data={data} theme={JSONPrettyMon}></JSONPretty>
+              : null
+          }
+        </pre>
       }
 
 
