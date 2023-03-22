@@ -1,21 +1,21 @@
 import React from 'react';
+import JSONPretty from 'react-json-pretty';
 
-// class Results extends React.Component {
-//   render() {
-//     return (
-//       <section>
-//         <pre>{this.props.data ? JSON.stringify(this.props.data, undefined, 2) : null}</pre>
-//       </section>
-//     );
-//   }
-// }
 
+//<pre>{data ? JSON.stringify(data, undefined, 2) : null}</pre>
 const Results = (props) => {
   const { data } = props;
-  
+  let JSONPrettyMon = require('react-json-pretty/dist/monikai');
+  //console.log('data: ', data);
+
   return (
     <section>
-      <pre>{data ? JSON.stringify(data, undefined, 2) : null}</pre>
+      {props.loading
+        ? <div>Loading...</div>
+        : <JSONPretty data={data ? data : null} theme={JSONPrettyMon}></JSONPretty>
+      }
+      
+      
     </section>
   );
 };
