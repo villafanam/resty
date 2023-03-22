@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import Footer from '.';
 
 describe('Footer component', () => {
-  it('displays footer text', () => {
+  it('displays footer text as expected', () => {
     render(<Footer/>);
 
     const footer = screen.getByTestId('footer');
