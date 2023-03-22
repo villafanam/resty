@@ -7,7 +7,7 @@ describe('Form component', () => {
   it('grabs url and method input as expected', () => {
     render(<Form/>);
 
-    const input = screen.getByTestId('input');
+    const input = screen.getByTestId('url-input');
     fireEvent.change(input, {target: {value: 'Tester.com'}});
     //expect(input).toHaveTextContent('Tester.com');
   });
