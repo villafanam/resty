@@ -18,18 +18,26 @@ const App = () => {
   const [loading, setLoading] = useState(false);
 
   const callApi = async (requestParamsForm) => {
-
+     // mock output
+     const data = {
+      count: 2,
+      results: [
+        {name: 'fake thing 1', url: 'http://fakethings.com/1'},
+        {name: 'fake thing 2', url: 'http://fakethings.com/2'},
+      ],
+    };
     // let config = {
     //   url: requestParamsForm.url,
     //   method: requestParamsForm.method,
     // };
 
-    let axiosData = await axios(requestParamsForm);
+    //let axiosData = await axios(requestParamsForm);
 
     setLoading(true);
 
     setTimeout(() => {
-      setData(axiosData.data);
+      // setData(axiosData.data);
+      setData(data);
       setRequestParams(requestParamsForm);
       setLoading(false);
     }, 1000);
