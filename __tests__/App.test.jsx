@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import App from '../App';
+import App from '../src/App';
 
 describe('App Component', () => {
   it('allows form use and renders results as expected', () => {
