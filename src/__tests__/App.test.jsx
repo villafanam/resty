@@ -31,7 +31,7 @@ import userEvent from '@testing-library/user-event';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import axios from 'axios';
-import App from './App';
+import App from '../App';
 
 const server = setupServer(
   rest.get('/api/data', (req, res, ctx) => {
