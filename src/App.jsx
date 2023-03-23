@@ -18,25 +18,22 @@ const App = () => {
   const [loading, setLoading] = useState(false);
 
   const callApi = async (requestParamsForm) => {
-    // let config = {
-    //   url: requestParamsForm.url,
-    //   method: requestParamsForm.method,
-    // };
-
-    //let axiosData = await axios(requestParamsForm);
-    setLoading(true);
-
-    //setData(axiosData.data);
     setRequestParams(requestParamsForm);
-    setLoading(false);
   };
 
   useEffect(() => {
-   console.log('Request Params received');
+
+    console.log('Request Params received');
+
     async function getData() {
-      let axiosData = await axios(requestParams);
-      setData(axiosData.data);
+      if (requestParams.method && requestParams.url) {
+        setLoading(true);
+        let axiosData = await axios(requestParams);
+        setData(axiosData.data);
+        setLoading(false);
+      }
     }
+    
     getData();
   }, [requestParams]);
 
