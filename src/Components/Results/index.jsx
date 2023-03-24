@@ -5,7 +5,7 @@ import JSONPretty from 'react-json-pretty';
 const Results = (props) => {
   const { data } = props;
   let JSONPrettyMon = require('react-json-pretty/dist/monikai');
-  //console.log('data: ', data);
+  console.log('Result-data: ', data);
 
   return (
     <section>

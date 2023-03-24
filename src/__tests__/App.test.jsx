@@ -1,17 +1,67 @@
+import '@testing-library/jest-dom';
+
+import {rest} from 'msw'
+import {setupServer} from 'msw/node'
+
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import App from '../App';
+
+// declare which API requests to mock
+const server = setupServer(
+  // capture "GET /greeting" requests
+  rest.get('/testGet', (req, res, ctx) => {
+    // respond using a mocked JSON body
+    return res(ctx.json({greeting: 'hello there'}))
+  }),
+)
+
+// establish API mocking before all tests
+beforeAll(() => server.listen())
+// reset any request handlers that are declared as a part of our tests
+// (i.e. for testing one-time error scenarios)
+afterEach(() => server.resetHandlers())
+// clean up once the tests are done
+afterAll(() => server.close())
+
+describe('App Component', () => {
+  it('allows form use and renders results as expected', async() => {
+    render(<App />);
+    let urlInput = screen.getByTestId('url-input');
+    let button = screen.getByTestId('button');
+    let getSpan = screen.getByTestId('get-span');
+
+    fireEvent.change(urlInput, {target: {value: '/testGet'}});
+    fireEvent.click(getSpan);
+    fireEvent.click(button);
+    
+    // findBy is async friendly (includes the waitFor already)
+    let json = await screen.findByTestId('json');
+    expect(json).toHaveTextContent('hello there');
+
+    let methodDiv = screen.getByText('Request Method: GET');
+    let urlDiv = screen.getByText('URL: /testGet');
+    expect(methodDiv).toBeInTheDocument();
+    expect(urlDiv).toBeInTheDocument();
+
+  })
+})
+
+
 // import '@testing-library/jest-dom';
 // import { fireEvent, render, screen } from '@testing-library/react';
 
-// import App from '../src/App';
+// import App from '../App';
 
 // describe('App Component', () => {
 //   it('allows form use and renders results as expected', () => {
 //     render(<App />);
 //     let urlInput = screen.getByTestId('url-input');
 //     let button = screen.getByTestId('button');
-//     let getSpan = screen.getByTestId('get-span');
+//     let postSpan = screen.getByTestId('post-span');
 
 //     fireEvent.change(urlInput, {target: {value: 'test.com'}});
-//     fireEvent.click(getSpan);
+//     fireEvent.click(postSpan);
 //     fireEvent.click(button);
     
 //     let json = screen.getByTestId('json');
@@ -24,41 +74,3 @@
 
 //   })
 // })
-
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
-import axios from 'axios';
-import App from '../App';
-
-const server = setupServer(
-  rest.get('/api/data', (req, res, ctx) => {
-    return res(ctx.json({ data: 'mock data' }));
-  })
-);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
-jest.mock('axios');
-
-describe('App', () => {
-  it('renders correctly', async () => {
-    axios.mockResolvedValueOnce({ data: 'mock data' });
-
-    render(<App />);
-
-    expect(screen.getByText('Request Method:')).toBeInTheDocument();
-    expect(screen.getByText('URL:')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Go!' })).toBeInTheDocument();
-
-    userEvent.type(screen.getByLabelText('URL'), '/api/data');
-    userEvent.click(screen.getByRole('button', { name: 'Go!' }));
-
-    expect(await screen.findByText('mock data')).toBeInTheDocument();
-  });
-});
-
